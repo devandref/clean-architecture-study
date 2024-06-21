@@ -1,18 +1,28 @@
-package io.github.devandref.clean_architecture_study.model.dto;
+package io.github.devandref.clean_architecture_study.domain.entities.usuario;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.github.devandref.clean_architecture_study.model.Usuario;
+import io.github.devandref.clean_architecture_study.domain.Endereco;
 
 import java.time.LocalDate;
 
-
-public class NovoUsuarioDTO {
+public class Usuario {
 
     private String cpf;
     private String nome;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
     private String email;
+    private Endereco endereco;
+
+    public Usuario(String cpf, String nome, LocalDate dataNascimento, String email) {
+        if(cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")) {
+            throw new IllegalArgumentException("CPF no padrão incorreto!");
+        }
+        this.cpf = cpf;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+    }
 
     public String getCpf() {
         return cpf;
@@ -46,12 +56,11 @@ public class NovoUsuarioDTO {
         this.email = email;
     }
 
-    public static Usuario dtoToEntity(NovoUsuarioDTO novoUsuarioDTO) {
-        Usuario usuario = new Usuario();
-        usuario.setCpf(novoUsuarioDTO.getCpf());
-        usuario.setNome(novoUsuarioDTO.getNome());
-        usuario.setEmail(novoUsuarioDTO.getEmail());
-        usuario.setDataNascimento(novoUsuarioDTO.getDataNascimento());
-        return usuario;
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

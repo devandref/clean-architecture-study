@@ -1,4 +1,4 @@
-package io.github.devandref.clean_architecture_study.model;
+package io.github.devandref.clean_architecture_study.infra.persistence;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class Usuario {
+public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,6 +18,16 @@ public class Usuario {
     private String nome;
     private LocalDate dataNascimento;
     private String email;
+
+    public UsuarioEntity() {
+    }
+
+    public UsuarioEntity(String cpf, String nome, LocalDate dataNascimento, String email) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+    }
 
     public UUID getId() {
         return id;
